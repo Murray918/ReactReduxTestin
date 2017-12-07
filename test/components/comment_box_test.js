@@ -28,11 +28,12 @@ describe('CommentBox', () => {
       })
 
       it('shows text that is enetered', () => {
-        // expect(component)
+        expect(component.find('textarea')).to.have.value('new comment')
       })
 
-      it('when submited, clears the input' () => {
-        // expect(component)
+      it('when submited, clears the input', () => {
+        component.simulate('submit')
+        expect(component.find('textarea')).to.have.value('')
 
       })
 
