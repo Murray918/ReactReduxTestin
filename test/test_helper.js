@@ -11,7 +11,7 @@ import reducers from "../src/reducers";
 import chaiJquery from 'chai-jquery'
 
 //set up testing enviornment to run like a browser in the command line
-
+//this sets up a fake html file to temporarily place our testing material
 global.document = jsdom.jsdom("<doctype html><html><body><body></html>");
 global.window = global.document.defaultView;
 //without this line of code it was not passing test CommentBoc has className comment-box
@@ -44,4 +44,5 @@ $.fn.simulate = function(eventName, value) {
 
 //set up chai jquery
 chaiJquery(chai, chai.util, $)
+//export the helpers for our testing files
 export { renderComponent, expect };

@@ -4,7 +4,7 @@ import App from '../../src/components/app';
 //use 'discribe' to group together similar test
 describe('App', () => {
   let component
-
+//befor each render the app component to the stagin area
   beforeEach( () => {
     component = renderComponent(App)
   })
