@@ -16,7 +16,7 @@ global.document = jsdom.jsdom("<doctype html><html><body><body></html>");
 global.window = global.document.defaultView;
 //without this line of code it was not passing test CommentBoc has className comment-box
 global.navigator = global.window.navigator;
-const $ = _$(global.window);
+const $ = _$(window);
 
 //build render component to that should render a given react class
 
@@ -39,7 +39,7 @@ $.fn.simulate = function(eventName, value) {
   }
   //this will simulate dynamically any event that is passed to simulate
   //in our case we are passing an array with multiple values so we can just use the first element in the array
-  TestUtils.simulate[eventName](this[0]);
+  TestUtils.Simulate[eventName](this[0]);
 };
 
 //set up chai jquery
