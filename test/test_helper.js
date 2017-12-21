@@ -1,20 +1,19 @@
 //test helper does these things
-import jsdom from 'jsdom'
-import _$ from 'jquery'
-import TestUtils from 'react-addons-test-utils'
-import ReactDom from 'react-dom'
-import { expect } from 'chai'
-import React from 'react'
-import { Provider } from 'react-redux'
-import {  createStore } from 'redux'
-import reducers from '../src/reducers'
+import jsdom from "jsdom";
+import _$ from "jquery";
+import TestUtils from "react-addons-test-utils";
+import ReactDOM from "react-dom";
+import chai, { expect } from "chai";
+import React from "react";
+import { Provider } from "react-redux";
+import { createStore } from "redux";
+import reducers from "../src/reducers";
 
 //set up testing enviornment to run like a browser in the command line
 
-
-global.document = jsdom.jsdom('<doctype html><html><body><body></html>')
-global.window = global.document.defaultView
-const $ = _$(global.window)
+global.document = jsdom.jsdom("<doctype html><html><body><body></html>");
+global.window = global.document.defaultView;
+const $ = _$(global.window);
 
 //build render component to that should render a given react class
 
@@ -22,17 +21,23 @@ const $ = _$(global.window)
 function renderComponent(ComponentClass, props, state) {
   const componentInstance = TestUtils.renderIntoDocument(
     //the second arg to the create store is some initial state
-    <Provider store = {createStore(reducers, state)}>
-    <ComponentClass {...props} />
-  </Provider>
-  )
+    <Provider store={createStore(reducers, state)}>
+      <ComponentClass {...props} />
+    </Provider>
+  );
 
-  return $(ReactDom.findDOMNode(componentInstance))
+  return $(ReactDOM.findDOMNode(componentInstance)); // produces HTML
 }
 
-//build helper for simulating eventsource
-
-
+//build helper for simulating events
+$.fn.simulate = function(eventName, value) {
+  if (value) {
+    this.val(value);
+  }
+  //this will simulate dynamically any event that is passed to simulate
+  //in our case we are passing an array with multiple values so we can just use the first element in the array
+  TestUtils.simulate[eventName](this[0]);
+};
 
 //set up chai jquery
-export { renderComponent, expect }
+export { renderComponent, expect };
