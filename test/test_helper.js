@@ -8,11 +8,14 @@ import React from "react";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
 import reducers from "../src/reducers";
+import chaiJquery from 'chai-jquery'
 
 //set up testing enviornment to run like a browser in the command line
 
 global.document = jsdom.jsdom("<doctype html><html><body><body></html>");
 global.window = global.document.defaultView;
+//without this line of code it was not passing test CommentBoc has className comment-box
+global.navigator = global.window.navigator;
 const $ = _$(global.window);
 
 //build render component to that should render a given react class
@@ -40,4 +43,5 @@ $.fn.simulate = function(eventName, value) {
 };
 
 //set up chai jquery
+chaiJquery(chai, chai.util, $)
 export { renderComponent, expect };
